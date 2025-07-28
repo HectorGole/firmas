@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Firma de Correo</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -106,6 +107,7 @@
             <h3>Código HTML de la Firma</h3>
             <textarea id="signatureHtmlCode" readonly></textarea>
             <button onclick="copyHtml()">Copiar HTML</button>
+            <button onclick="downloadAsPNG()">Descargar como PNG</button>
         </div>
     </div>
 
@@ -154,7 +156,17 @@
             const htmlCode = document.getElementById('signatureHtmlCode');
             htmlCode.select();
             document.execCommand('copy');
-            alert('Código HTML copiado al portapapeles!');
+            alert('Código HTML copiado al portapeles!');
+        }
+
+        function downloadAsPNG() {
+            const element = document.getElementById('signaturePreview');
+            html2canvas(element).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'firma-de-correo.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
         }
     </script>
 </body>
